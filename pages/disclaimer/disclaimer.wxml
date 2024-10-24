@@ -1,0 +1,19 @@
+<!--pages/disclaimer/disclaimer.wxml-->
+<view class="container">
+  <view class="disclaimer">
+    <text class="title">免责声明</text>
+    <text class="content">
+      欢迎使用本微信小程序。在继续使用之前，请仔细阅读并同意以下免责声明：
+
+      1. 信息准确性：本小程序内提供的信息仅供参考，尽可能确保其准确性和完整性，但不保证其完全无误或时效性。本小程序不对因使用本小程序信息而引起的任何损失或损害负责。
+
+      2. 个人信息保护：我们致力于保护用户的个人信息安全。使用本小程序过程中，我们可能会收集和使用您的部分个人信息。具体详情请参阅我们的《隐私政策》。
+
+      如果您同意以上条款，请点击“同意”按钮继续使用本小程序。如您不同意上述条款，请点击“拒绝”并退出本小程序。
+    </text>
+  </view>
+  <view class="buttons">
+    <button type="primary" bindtap="onAgree">同意</button>
+    <button type="default" bindtap="onDisagree">拒绝</button>
+  </view>
+</view>

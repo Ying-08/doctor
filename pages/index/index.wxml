@@ -1,0 +1,75 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <button bindtap="switchLanguage">{{language === 'en' ? 'zh' : 'en'}}</button>
+  </view>
+  
+  <view class="slider-container" >
+    <view>{{language === 'en' ? 'Adjust Opacity' : '调整透明度'}}</view>
+    <slider min="0" max="100" step="1" value="{{overlayImageOpacity * 100}}" bindchange="onOverlayImageOpacityChange"></slider>
+  </view>
+
+  <view class="content">
+  <button class="action-button" bindtap="onRead">{{language === 'en' ? 'Read' : '读片'}}</button>
+  <button class="action-button" bindtap="onDiagnose">{{language === 'en' ? 'Diagnose' : '诊断'}}</button>
+  <button class="action-button" bindtap="onRecord">{{language === 'en' ? 'Record' : '记录'}}</button>
+</view>
+
+  <view class="toggle-container">
+  <button class="toggle-button" bindtap="toggleForm">{{language === 'en' ? 'Show/Hide Form' : '显示/隐藏表单'}}</button>
+</view>
+
+  
+  <view wx:if="{{diagnosisResult}}">
+      <text wx:if="{{diagnosisResult}}">{{diagnosisResult}}</text>
+    </view>
+    
+    <view class="form" wx:if="{{showForm}}">
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'Gestational Age' : '胎龄'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter gestational age' : '输入胎龄'}}" value="{{clinicalData.gestationalAge}}" bindinput="onInputChange" data-field="gestationalAge" />
+      </view>
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'RBC' : '红细胞计数(RBC)'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter RBC' : '输入红细胞计数(RBC)'}}" value="{{clinicalData.rbc}}" bindinput="onInputChange" data-field="rbc" />
+      </view>
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'Hb' : '血红蛋白(Hb)'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter Hb' : '输入血红蛋白(Hb)'}}" value="{{clinicalData.hb}}" bindinput="onInputChange" data-field="hb" />
+      </view>
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'WBC' : '白细胞(WBC)'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter WBC' : '输入白细胞(WBC)'}}" value="{{clinicalData.wbc}}" bindinput="onInputChange" data-field="wbc" />
+      </view>
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'WBC Differential' : '白细胞分类计数'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter WBC Differential' : '输入白细胞分类计数'}}" value="{{clinicalData.wbcDiff}}" bindinput="onInputChange" data-field="wbcDiff" />
+      </view>
+      <view class="form-item">
+        <text class="label-text">{{language === 'en' ? 'PLT' : '血小板(PLT)'}}</text>
+        <input placeholder="{{language === 'en' ? 'Enter PLT' : '输入血小板(PLT)'}}" value="{{clinicalData.plt}}" bindinput="onInputChange" />
+      </view>
+    </view>
+
+    <view wx:if="{{diagnosisText}}" class="diagnosis-text">
+  <text>{{diagnosisText}}</text>
+</view>
+
+  <view class="img"><image src="/pages/img/GDUTlogo.png" mode="aspectFit"></image></view>
+
+  <!-- <view class="image-container">
+    <image src="{{selectedImage}}" mode="aspectFit" class="responsive-image" wx:if="{{selectedImage}}" ></image>
+    <!-- <image src="{{overlayImage}}" mode="aspectFit" class="overlay-image" wx:if="{{overlayImage}}"></image> -->
+    <!-- <image src="{{overlayImage}}" mode="aspectFit" class="overlay-image" style="opacity: {{overlayImageOpacity}};"></image>
+  </view> --> 
+  <view class="image-container" style="height: {{imageContainerHeight}}px;">
+  <movable-area class="movable-area">
+    <movable-view class="movable-view" direction="all" scale="true" scale-min="1" scale-max="3" scale-value="{{scaleValue}}" bindchange="onScaleChange">
+      <image src="{{selectedImage}}" mode="widthFix" class="responsive-image" wx:if="{{selectedImage}}"></image>
+      <image src="{{overlayImage}}" mode="widthFix" class="overlay-image" wx:if="{{overlayImage}}" style="opacity: {{overlayImageOpacity}};"></image>
+    </movable-view>
+  </movable-area>
+</view>
+</view>
+
+
