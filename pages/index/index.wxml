@@ -24,7 +24,7 @@
       <text wx:if="{{diagnosisResult}}">{{diagnosisResult}}</text>
     </view>
     
-    <view class="form" wx:if="{{showForm}}">
+    <!-- <view class="form" wx:if="{{showForm}}">
       <view class="form-item">
         <text class="label-text">{{language === 'en' ? 'Gestational Age' : '胎龄'}}</text>
         <input placeholder="{{language === 'en' ? 'Enter gestational age' : '输入胎龄'}}" value="{{clinicalData.gestationalAge}}" bindinput="onInputChange" data-field="gestationalAge" />
@@ -49,7 +49,206 @@
         <text class="label-text">{{language === 'en' ? 'PLT' : '血小板(PLT)'}}</text>
         <input placeholder="{{language === 'en' ? 'Enter PLT' : '输入血小板(PLT)'}}" value="{{clinicalData.plt}}" bindinput="onInputChange" />
       </view>
+    </view> -->
+
+    <view wx:if="{{showForm}}" class="form-container">
+      <view class="form-group">
+      <text>{{language === 'en' ? 'Username' : '用户名'}}</text>
+      <input placeholder="{{language === 'en' ? 'Enter username' : '请输入用户名'}}" value="{{user.username}}" bindinput="onUsernameInput" />
     </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Hospitalization Number' : '住院号'}}</text>
+      <input placeholder="{{language === 'en' ? 'Enter hospitalization number' : '请输入住院号'}}" value="{{user.hospitalization_number}}" bindinput="onHospitalizationNumberInput" />
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Reaction' : '反应'}}</text>
+      <picker mode="selector" value="{{reaction}}" range="{{reactionOptions}}" bindchange="onReactionChange">
+        <view>{{reactionOptions[reaction]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Temperature (°C)' : '体温(℃)'}}</text>
+      <picker mode="selector" value="{{temperatureStatus}}" range="{{temperatureStatusOptions}}" bindchange="onTemperatureStatusChange">
+        <view>{{temperatureStatusOptions[temperatureStatus]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Circulatory CRT (s)' : '循环CRT (秒)'}}</text>
+      <input type="number" value="{{circulatory.CRT}}" bindinput="onCRTChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Heart Rate (bpm)' : '心率 (次/分钟)'}}</text>
+      <input type="number" value="{{circulatory.heart_rate}}" bindinput="onHeartRateChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Systolic Pressure (mmHg)' : '收缩压 (mmHg)'}}</text>
+      <input type="number" value="{{circulatory.systolic_pressure}}" bindinput="onBloodPressureChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Infant Type' : '婴儿类型'}}</text>
+      <picker mode="selector" value="{{infantType}}" range="{{infantTypeOptions}}" bindchange="onInfantTypeChange">
+        <view>{{infantTypeOptions[infantType]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Respiratory Rate (breaths/min)' : '呼吸频率 (次/分钟)'}}</text>
+      <input type="number" value="{{respiratory.respiratory_rate}}" bindinput="onRespiratoryRateChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Respiratory Pause' : '呼吸暂停'}}</text>
+      <picker mode="selector" value="{{respiratory.respiratory_pause}}" range="{{yesNoOptions}}" bindchange="onRespiratoryPauseChange">
+        <view>{{yesNoOptions[respiratory.respiratory_pause]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Respiratory Support' : '提高呼吸支持'}}</text>
+      <picker mode="selector" value="{{respiratory.respiratory_support}}" range="{{yesNoOptions}}" bindchange="onRespiratorySupportChange">
+        <view>{{yesNoOptions[respiratory.respiratory_support]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Abdominal Distension' : '腹胀'}}</text>
+      <picker mode="selector" value="{{abdomen.abdominal_distension}}" range="{{abdominalDistensionOptions}}" bindchange="onAbdominalDistensionChange">
+        <view>{{abdominalDistensionOptions[abdomen.abdominal_distension]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Bowel Sound' : '肠鸣音'}}</text>
+      <picker mode="selector" value="{{abdomen.bowel_sound}}" range="{{bowelSoundOptions}}" bindchange="onBowelSoundChange">
+        <view>{{bowelSoundOptions[abdomen.bowel_sound]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Abdominal Tenderness' : '腹部触痛'}}</text>
+      <picker mode="selector" value="{{abdomen.abdominal_tenderness}}" range="{{yesNoOptions}}" bindchange="onAbdominalTendernessChange">
+        <view>{{yesNoOptions[abdomen.abdominal_tenderness]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Abdominal Erythema' : '腹部红斑'}}</text>
+      <picker mode="selector" value="{{abdomen.abdominal_erythema}}" range="{{yesNoOptions}}" bindchange="onAbdominalErythemaChange">
+        <view>{{yesNoOptions[abdomen.abdominal_erythema]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Bloody Stool' : '血便'}}</text>
+      <picker mode="selector" value="{{abdomen.bloody_stool}}" range="{{yesNoOptions}}" bindchange="onBloodyStoolChange">
+        <view>{{yesNoOptions[abdomen.bloody_stool]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Gastric Residual' : '胃潴留'}}</text>
+      <input type="number" value="{{feeding.gastric_residual}}" bindinput="onGastricResidualChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Bilious Vomiting' : '胆汁呕吐'}}</text>
+      <picker mode="selector" value="{{feeding.bilious_vomiting}}" range="{{yesNoOptions}}" bindchange="onBiliousVomitingChange">
+        <view>{{yesNoOptions[feeding.bilious_vomiting]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Formula Feeding' : '奶粉喂养'}}</text>
+      <picker mode="selector" value="{{feeding.formula_feeding}}" range="{{yesNoOptions}}" bindchange="onFormulaFeedingChange">
+        <view>{{yesNoOptions[feeding.formula_feeding]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Fecal Occult Blood' : '大便潜血'}}</text>
+      <picker mode="selector" value="{{examination.fecal_occult_blood}}" range="{{yesNoOptions}}" bindchange="onFecalOccultBloodChange">
+        <view>{{yesNoOptions[examination.fecal_occult_blood]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Platelet Count (x10^9/L)' : '血小板数 (x10^9/L)'}}</text>
+      <input type="number" value="{{examination.platelet}}" bindinput="onPlateletChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Lactate (mmol/L)' : '乳酸 (mmol/L)'}}</text>
+      <input type="number" value="{{examination.lactate}}" bindinput="onLactateChange"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'HCO3 (mmol/L)' : 'HCO3 (mmol/L)'}}</text>
+      <input type="number" value="{{examination.hco3}}" bindinput="onHCO3Change"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'PCO2 (mmHg)' : 'PCO2 (mmHg)'}}</text>
+      <input type="number" value="{{examination.pco2}}" bindinput="onPCO2Change"/>
+    </view>
+
+    <view class="form-group">
+      <text>{{language === 'en' ? 'Neutrophils (%)' : '中性粒细胞 (%)'}}</text>
+      <input type="number" value="{{examination.neutrophils}}" bindinput="onNeutrophilsChange"/>
+    </view>
+
+  <view class="form-group">
+    <text>DIC：</text>
+    <picker mode="selector" value="{{examination.dic}}" range="{{yesNoOptions}}" bindchange="onDicChange">
+      <view>{{yesNoOptions[examination.dic]}}</view>
+    </picker>
+  </view>
+
+  <!-- 必填项: 影像 -->
+  <!-- <view class="form-group">
+    <text>X线：</text>
+    <picker mode="selector" value="{{imaging.xRay}}" range="{{xRayOptions}}" bindchange="onXRayChange">
+      <view>{{xRayOptions[imaging.xRay]}}</view>
+    </picker>
+  </view> -->
+
+  <view class="form-group">
+  <text>{{language === 'en' ? 'Ascites' : '腹水'}}</text>
+  <picker mode="selector" value="{{imaging.ascites}}" range="{{yesNoOptions}}" bindchange="onAscitesChange">
+    <view>{{yesNoOptions[imaging.ascites]}}</view>
+  </picker>
+</view>
+
+<view class="form-group">
+  <text>{{language === 'en' ? 'Pneumoperitoneum' : '气腹'}}</text>
+  <picker mode="selector" value="{{imaging.pneumoperitoneum}}" range="{{yesNoOptions}}" bindchange="onPneumoperitoneumChange">
+    <view>{{yesNoOptions[imaging.pneumoperitoneum]}}</view>
+  </picker>
+</view>
+
+<!-- 选填项: BW 或 GA -->
+<view class="form-group">
+  <text>{{language === 'en' ? 'Weight (BW)' : '体重 BW'}}</text>
+  <input type="number" value="{{other.BW}}" bindinput="onBWChange"/>
+</view>
+
+<view class="form-group">
+  <text>{{language === 'en' ? 'Gestational Age (GA)' : '孕周 GA'}}</text>
+  <input type="number" value="{{other.GA}}" bindinput="onGAChange"/>
+</view>
+
+<!-- 提交按钮 -->
+<button bindtap="submitForm" disabled="{{!isFormValid}}">
+  {{language === 'en' ? 'Submit' : '提交'}}
+</button>
+</view>
+
 
     <view wx:if="{{diagnosisText}}" class="diagnosis-text">
   <text>{{diagnosisText}}</text>
